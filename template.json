@@ -1,0 +1,229 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "sites_CRMTECDEMO_name": {
+            "defaultValue": "CRMTECDEMO",
+            "type": "String"
+        },
+        "serverfarms_ASP_CRMTCDEMO_a6fc_externalid": {
+            "defaultValue": "/subscriptions/a7c10be0-0457-472e-b938-207f3584dc28/resourceGroups/CRMTCDEMO/providers/Microsoft.Web/serverfarms/ASP-CRMTCDEMO-a6fc",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2022-03-01",
+            "name": "[parameters('sites_CRMTECDEMO_name')]",
+            "location": "Canada Central",
+            "tags": {
+                "hidden-link: /app-insights-resource-id": "/subscriptions/a7c10be0-0457-472e-b938-207f3584dc28/resourceGroups/CRMTCDEMO/providers/microsoft.insights/components/CRMTECDEMO",
+                "hidden-link: /app-insights-instrumentation-key": "ae0e5f08-12db-48da-a6dc-ed7a3df2c84f",
+                "hidden-link: /app-insights-conn-string": "InstrumentationKey=ae0e5f08-12db-48da-a6dc-ed7a3df2c84f;IngestionEndpoint=https://canadacentral-1.in.applicationinsights.azure.com/;LiveEndpoint=https://canadacentral.livediagnostics.monitor.azure.com/"
+            },
+            "kind": "functionapp",
+            "properties": {
+                "enabled": true,
+                "hostNameSslStates": [
+                    {
+                        "name": "crmtecdemo.azurewebsites.net",
+                        "sslState": "Disabled",
+                        "hostType": "Standard"
+                    },
+                    {
+                        "name": "crmtecdemo.scm.azurewebsites.net",
+                        "sslState": "Disabled",
+                        "hostType": "Repository"
+                    }
+                ],
+                "serverFarmId": "[parameters('serverfarms_ASP_CRMTCDEMO_a6fc_externalid')]",
+                "reserved": false,
+                "isXenon": false,
+                "hyperV": false,
+                "vnetRouteAllEnabled": false,
+                "vnetImagePullEnabled": false,
+                "vnetContentShareEnabled": false,
+                "siteConfig": {
+                    "numberOfWorkers": 1,
+                    "acrUseManagedIdentityCreds": false,
+                    "alwaysOn": false,
+                    "http20Enabled": false,
+                    "functionAppScaleLimit": 200,
+                    "minimumElasticInstanceCount": 0
+                },
+                "scmSiteAlsoStopped": false,
+                "clientAffinityEnabled": false,
+                "clientCertEnabled": false,
+                "clientCertMode": "Required",
+                "hostNamesDisabled": false,
+                "customDomainVerificationId": "41ED53C86ED55511F2F568ED69974E149E7B9B04007B0BDDB5A4D9F523B82ADE",
+                "containerSize": 1536,
+                "dailyMemoryTimeQuota": 0,
+                "httpsOnly": true,
+                "redundancyMode": "None",
+                "storageAccountRequired": false,
+                "keyVaultReferenceIdentity": "SystemAssigned"
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/basicPublishingCredentialsPolicies",
+            "apiVersion": "2022-03-01",
+            "name": "[concat(parameters('sites_CRMTECDEMO_name'), '/ftp')]",
+            "location": "Canada Central",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_CRMTECDEMO_name'))]"
+            ],
+            "tags": {
+                "hidden-link: /app-insights-resource-id": "/subscriptions/a7c10be0-0457-472e-b938-207f3584dc28/resourceGroups/CRMTCDEMO/providers/microsoft.insights/components/CRMTECDEMO",
+                "hidden-link: /app-insights-instrumentation-key": "ae0e5f08-12db-48da-a6dc-ed7a3df2c84f",
+                "hidden-link: /app-insights-conn-string": "InstrumentationKey=ae0e5f08-12db-48da-a6dc-ed7a3df2c84f;IngestionEndpoint=https://canadacentral-1.in.applicationinsights.azure.com/;LiveEndpoint=https://canadacentral.livediagnostics.monitor.azure.com/"
+            },
+            "properties": {
+                "allow": true
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/basicPublishingCredentialsPolicies",
+            "apiVersion": "2022-03-01",
+            "name": "[concat(parameters('sites_CRMTECDEMO_name'), '/scm')]",
+            "location": "Canada Central",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_CRMTECDEMO_name'))]"
+            ],
+            "tags": {
+                "hidden-link: /app-insights-resource-id": "/subscriptions/a7c10be0-0457-472e-b938-207f3584dc28/resourceGroups/CRMTCDEMO/providers/microsoft.insights/components/CRMTECDEMO",
+                "hidden-link: /app-insights-instrumentation-key": "ae0e5f08-12db-48da-a6dc-ed7a3df2c84f",
+                "hidden-link: /app-insights-conn-string": "InstrumentationKey=ae0e5f08-12db-48da-a6dc-ed7a3df2c84f;IngestionEndpoint=https://canadacentral-1.in.applicationinsights.azure.com/;LiveEndpoint=https://canadacentral.livediagnostics.monitor.azure.com/"
+            },
+            "properties": {
+                "allow": true
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/config",
+            "apiVersion": "2022-03-01",
+            "name": "[concat(parameters('sites_CRMTECDEMO_name'), '/web')]",
+            "location": "Canada Central",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_CRMTECDEMO_name'))]"
+            ],
+            "tags": {
+                "hidden-link: /app-insights-resource-id": "/subscriptions/a7c10be0-0457-472e-b938-207f3584dc28/resourceGroups/CRMTCDEMO/providers/microsoft.insights/components/CRMTECDEMO",
+                "hidden-link: /app-insights-instrumentation-key": "ae0e5f08-12db-48da-a6dc-ed7a3df2c84f",
+                "hidden-link: /app-insights-conn-string": "InstrumentationKey=ae0e5f08-12db-48da-a6dc-ed7a3df2c84f;IngestionEndpoint=https://canadacentral-1.in.applicationinsights.azure.com/;LiveEndpoint=https://canadacentral.livediagnostics.monitor.azure.com/"
+            },
+            "properties": {
+                "numberOfWorkers": 1,
+                "defaultDocuments": [
+                    "Default.htm",
+                    "Default.html",
+                    "Default.asp",
+                    "index.htm",
+                    "index.html",
+                    "iisstart.htm",
+                    "default.aspx",
+                    "index.php"
+                ],
+                "netFrameworkVersion": "v6.0",
+                "requestTracingEnabled": false,
+                "remoteDebuggingEnabled": false,
+                "remoteDebuggingVersion": "VS2019",
+                "httpLoggingEnabled": false,
+                "acrUseManagedIdentityCreds": false,
+                "logsDirectorySizeLimit": 35,
+                "detailedErrorLoggingEnabled": false,
+                "publishingUsername": "$CRMTECDEMO",
+                "scmType": "None",
+                "use32BitWorkerProcess": true,
+                "webSocketsEnabled": false,
+                "alwaysOn": false,
+                "managedPipelineMode": "Integrated",
+                "virtualApplications": [
+                    {
+                        "virtualPath": "/",
+                        "physicalPath": "site\\wwwroot",
+                        "preloadEnabled": false
+                    }
+                ],
+                "loadBalancing": "LeastRequests",
+                "experiments": {
+                    "rampUpRules": []
+                },
+                "autoHealEnabled": false,
+                "vnetRouteAllEnabled": false,
+                "vnetPrivatePortsCount": 0,
+                "cors": {
+                    "allowedOrigins": [
+                        "https://portal.azure.com"
+                    ],
+                    "supportCredentials": false
+                },
+                "localMySqlEnabled": false,
+                "ipSecurityRestrictions": [
+                    {
+                        "ipAddress": "Any",
+                        "action": "Allow",
+                        "priority": 2147483647,
+                        "name": "Allow all",
+                        "description": "Allow all access"
+                    }
+                ],
+                "scmIpSecurityRestrictions": [
+                    {
+                        "ipAddress": "Any",
+                        "action": "Allow",
+                        "priority": 2147483647,
+                        "name": "Allow all",
+                        "description": "Allow all access"
+                    }
+                ],
+                "scmIpSecurityRestrictionsUseMain": false,
+                "http20Enabled": false,
+                "minTlsVersion": "1.2",
+                "scmMinTlsVersion": "1.2",
+                "ftpsState": "FtpsOnly",
+                "preWarmedInstanceCount": 0,
+                "functionAppScaleLimit": 200,
+                "functionsRuntimeScaleMonitoringEnabled": false,
+                "minimumElasticInstanceCount": 0,
+                "azureStorageAccounts": {}
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/functions",
+            "apiVersion": "2022-03-01",
+            "name": "[concat(parameters('sites_CRMTECDEMO_name'), '/HttpTrigger1')]",
+            "location": "Canada Central",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_CRMTECDEMO_name'))]"
+            ],
+            "properties": {
+                "script_root_path_href": "https://crmtecdemo.azurewebsites.net/admin/vfs/site/wwwroot/HttpTrigger1/",
+                "script_href": "https://crmtecdemo.azurewebsites.net/admin/vfs/site/wwwroot/HttpTrigger1/run.csx",
+                "config_href": "https://crmtecdemo.azurewebsites.net/admin/vfs/site/wwwroot/HttpTrigger1/function.json",
+                "test_data_href": "https://crmtecdemo.azurewebsites.net/admin/vfs/data/Functions/sampledata/HttpTrigger1.dat",
+                "href": "https://crmtecdemo.azurewebsites.net/admin/functions/HttpTrigger1",
+                "config": {},
+                "test_data": "{\r\n    \"name\": \"Azure\"\r\n}",
+                "invoke_url_template": "https://crmtecdemo.azurewebsites.net/api/httptrigger1",
+                "language": "CSharp",
+                "isDisabled": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/hostNameBindings",
+            "apiVersion": "2022-03-01",
+            "name": "[concat(parameters('sites_CRMTECDEMO_name'), '/', parameters('sites_CRMTECDEMO_name'), '.azurewebsites.net')]",
+            "location": "Canada Central",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_CRMTECDEMO_name'))]"
+            ],
+            "properties": {
+                "siteName": "CRMTECDEMO",
+                "hostNameType": "Verified"
+            }
+        }
+    ]
+}
